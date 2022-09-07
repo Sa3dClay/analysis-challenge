@@ -1,12 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export type AnalysisData = {
+export type AnalysisDataType = {
   camp: string;
   country: string;
   id: string;
   lessons: number;
   month: string;
   school: string;
+};
+
+export type AnalysisStateType = {
+  analysisData: {
+    data: [];
+    countriesFilter: [];
+    schoolsFilter: [];
+    campsFilter: [];
+  }
 };
 
 const initialData = {
@@ -23,21 +32,23 @@ const analysisDataSlice = createSlice({
     setData(state, action) {
       state.data = action.payload;
       // set countries filter
-      const countries = action.payload.map((row: AnalysisData) => {
+      const countries = action.payload.map((row: AnalysisDataType) => {
         return row.country;
       });
-      state.countriesFilter = countries.filter((item: string, index: number) => {
-        return countries.indexOf(item) === index;
-      });
+      state.countriesFilter = countries.filter(
+        (item: string, index: number) => {
+          return countries.indexOf(item) === index;
+        }
+      );
       // set schools filter
-      const schools = action.payload.map((row: AnalysisData) => {
+      const schools = action.payload.map((row: AnalysisDataType) => {
         return row.school;
       });
       state.schoolsFilter = schools.filter((item: string, index: number) => {
         return schools.indexOf(item) === index;
       });
       // set camps filter
-      const camps = action.payload.map((row: AnalysisData) => {
+      const camps = action.payload.map((row: AnalysisDataType) => {
         return row.camp;
       });
       state.campsFilter = camps.filter((item: string, index: number) => {
