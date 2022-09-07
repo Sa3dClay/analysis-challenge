@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Loader } from "../components/UI/Loader";
+import { analysisDataActions } from "../store/analysis.slice";
 
 const Analysis = () => {
+  const dispatch = useDispatch();
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -15,7 +18,7 @@ const Analysis = () => {
     const json = await response.json();
 
     if (!response.ok) setError(json.error);
-    else console.log(json);
+    else dispatch(analysisDataActions.setData(json));
 
     setIsLoading(false);
   };
