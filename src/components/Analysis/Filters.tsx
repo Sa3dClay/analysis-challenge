@@ -1,7 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AnalysisStateType } from "../../store/analysis.slice";
-import { filtersDataActions } from "../../store/filters.slice";
+import { analysisDataActions, AnalysisStateType } from "../../store/analysis.slice";
 
 const Filters = () => {
   const dispatch = useDispatch();
@@ -12,19 +11,19 @@ const Filters = () => {
   const changeCountryFilterHandler = (
     event: React.FormEvent<HTMLSelectElement>
   ) => {
-    dispatch(filtersDataActions.setCountryFilter(event.currentTarget.value));
+    dispatch(analysisDataActions.setCountryFilter(event.currentTarget.value));
   };
 
   const changeSchoolFilterHandler = (
     event: React.FormEvent<HTMLSelectElement>
   ) => {
-    dispatch(filtersDataActions.setSchoolFilter(event.currentTarget.value));
+    dispatch(analysisDataActions.setSchoolFilter(event.currentTarget.value));
   };
 
   const changeCampFilterHandler = (
     event: React.FormEvent<HTMLSelectElement>
   ) => {
-    dispatch(filtersDataActions.setCampFilter(event.currentTarget.value));
+    dispatch(analysisDataActions.setCampFilter(event.currentTarget.value));
   };
 
   return (
@@ -34,13 +33,13 @@ const Filters = () => {
         <div className="my-2">
           <label htmlFor="countries">Select Country</label>
           <select
-            className="mx-2 px-2 py-1 bg-indigo-600 text-white border-none outline-none"
+            className="mx-2 px-2 py-1 bg-indigo-600 text-white border-none outline-none w-40"
             name="countries"
             id="countries"
             onChange={changeCountryFilterHandler}
           >
-            {analysisData.countriesFilter &&
-              analysisData.countriesFilter.map((country, index) => {
+            {analysisData.countries &&
+              analysisData.countries.map((country, index) => {
                 return <option key={index}>{country}</option>;
               })}
           </select>
@@ -49,14 +48,14 @@ const Filters = () => {
         <div className="my-2">
           <label htmlFor="schools">Select School</label>
           <select
-            className="mx-2 px-2 py-1 bg-indigo-600 text-white border-none outline-none"
+            className="mx-2 px-2 py-1 bg-indigo-600 text-white border-none outline-none w-40"
             name="schools"
             id="schools"
             onChange={changeSchoolFilterHandler}
           >
-            <option>All Schools</option>
-            {analysisData.schoolsFilter &&
-              analysisData.schoolsFilter.map((school, index) => {
+            <option value="all">Show All</option>
+            {analysisData.schools &&
+              analysisData.schools.map((school, index) => {
                 return <option key={index}>{school}</option>;
               })}
           </select>
@@ -65,13 +64,13 @@ const Filters = () => {
         <div className="my-2">
           <label htmlFor="camps">Select Camp</label>
           <select
-            className="mx-2 px-2 py-1 bg-indigo-600 text-white border-none outline-none"
+            className="mx-2 px-2 py-1 bg-indigo-600 text-white border-none outline-none w-40"
             name="camps"
             id="camps"
             onChange={changeCampFilterHandler}
           >
-            {analysisData.campsFilter &&
-              analysisData.campsFilter.map((camp, index) => {
+            {analysisData.camps &&
+              analysisData.camps.map((camp, index) => {
                 return <option key={index}>{camp}</option>;
               })}
           </select>

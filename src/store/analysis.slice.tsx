@@ -12,17 +12,29 @@ export type AnalysisDataType = {
 export type AnalysisStateType = {
   analysisData: {
     data: [];
-    countriesFilter: [];
-    schoolsFilter: [];
-    campsFilter: [];
+    filteredData: [];
+    countries: [];
+    schools: [];
+    camps: [];
+    filters: {
+      country: string;
+      school: string;
+      camp: string;
+    };
   };
 };
 
 const initialData = {
   data: [],
-  countriesFilter: [],
-  schoolsFilter: [],
-  campsFilter: [],
+  filteredData: [],
+  countries: [],
+  schools: [],
+  camps: [],
+  filters: {
+    country: "",
+    school: "",
+    camp: "",
+  },
 };
 
 const analysisDataSlice = createSlice({
@@ -30,30 +42,69 @@ const analysisDataSlice = createSlice({
   initialState: initialData,
   reducers: {
     setData(state, action) {
+      // set all data
       state.data = action.payload;
+      state.filteredData = state.data;
       // set countries filter
-      const countries = action.payload.map((row: AnalysisDataType) => {
+      const allCountries = state.data.map((row: AnalysisDataType) => {
         return row.country;
+      }) as [];
+      state.countries = allCountries.filter((item, index) => {
+        return allCountries.indexOf(item) === index;
       });
-      state.countriesFilter = countries.filter(
-        (item: string, index: number) => {
-          return countries.indexOf(item) === index;
-        }
-      );
       // set schools filter
-      const schools = action.payload.map((row: AnalysisDataType) => {
+      const allSchools = state.data.map((row: AnalysisDataType) => {
         return row.school;
-      });
-      state.schoolsFilter = schools.filter((item: string, index: number) => {
-        return schools.indexOf(item) === index;
+      }) as [];
+      state.schools = allSchools.filter((item, index) => {
+        return allSchools.indexOf(item) === index;
       });
       // set camps filter
-      const camps = action.payload.map((row: AnalysisDataType) => {
+      const allCamps = state.data.map((row: AnalysisDataType) => {
         return row.camp;
       });
-      state.campsFilter = camps.filter((item: string, index: number) => {
-        return camps.indexOf(item) === index;
-      });
+      state.camps = allCamps.filter((item, index) => {
+        return allCamps.indexOf(item) === index;
+      }) as [];
+    },
+    setCampFilter(state, action) {
+      state.filters.camp = action.payload;
+      if (state.filteredData.length === 0) state.filteredData = state.data;
+
+      state.filteredData = state.filteredData.filter(
+        (row: AnalysisDataType) => {
+          return row.camp === action.payload;
+        }
+      );
+    },
+    setSchoolFilter(state, action) {
+      state.filters.school = action.payload;
+      if (state.filteredData.length === 0) state.filteredData = state.data;
+
+      state.filteredData = state.filteredData.filter(
+        (row: AnalysisDataType) => {
+          return row.school === action.payload;
+        }
+      );
+
+      if (action.payload === "all") {
+        state.filteredData = state.data.filter((row: AnalysisDataType) => {
+          return (
+            row.camp === state.filters.camp &&
+            row.country === state.filters.country
+          );
+        });
+      }
+    },
+    setCountryFilter(state, action) {
+      state.filters.country = action.payload;
+      if (state.filteredData.length === 0) state.filteredData = state.data;
+
+      state.filteredData = state.filteredData.filter(
+        (row: AnalysisDataType) => {
+          return row.country === action.payload;
+        }
+      );
     },
     clearData() {
       return initialData;
