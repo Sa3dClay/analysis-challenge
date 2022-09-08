@@ -12,15 +12,19 @@ const Classes = () => {
 
   return (
     <div className="h-96 overflow-y-scroll text-gray-800 border-l-2 pl-5 border-indigo-800">
-      <p className="text-xl">
-        <span className="pr-2 text-2xl font-bold">
-          {analysisData.filteredData.length}
-        </span>
-        <span className="text-indigo-800">Lessons</span>
-      </p>
-      <p className="pb-4 text-xs text-gray-500">
-        In {analysisData.filters.camp}
-      </p>
+      <div className="pl-10 pb-4">
+        <p className="text-xl">
+          <span className="pr-2 text-2xl font-bold">
+            {analysisData.filteredData.length}
+          </span>
+          <span className="text-indigo-800">Lessons</span>
+        </p>
+        {analysisData.filters.camp && (
+          <p className="text-xs text-gray-500">
+            In {analysisData.filters.camp}
+          </p>
+        )}
+      </div>
       {/* classes */}
       {analysisData.schools.map((school, index) => {
         const lessonsPerSchool = analysisData.filteredData.filter(

@@ -31,7 +31,7 @@ const Filters = () => {
 
   return (
     <>
-      <div className="grid grid-cols-2 lg:grid-cols-3 justify-items-center py-4">
+      <div className="grid grid-cols-2 lg:grid-cols-3 justify-between py-4">
         {/* countries */}
         <div className="my-2">
           <label htmlFor="countries">Select Country</label>
