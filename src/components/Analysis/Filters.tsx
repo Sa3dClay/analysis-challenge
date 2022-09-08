@@ -47,6 +47,21 @@ const Filters = () => {
               })}
           </select>
         </div>
+        {/* camps */}
+        <div className="my-2">
+          <label htmlFor="camps">Select Camp</label>
+          <select
+            className="mx-2 px-2 py-1 bg-indigo-600 text-white border-none outline-none w-40"
+            name="camps"
+            id="camps"
+            onChange={changeCampFilterHandler}
+          >
+            {analysisData.camps &&
+              analysisData.camps.map((camp, index) => {
+                return <option key={index}>{camp}</option>;
+              })}
+          </select>
+        </div>
         {/* schools */}
         <div className="my-2">
           <label htmlFor="schools">Select School</label>
@@ -60,21 +75,6 @@ const Filters = () => {
             {analysisData.schools &&
               analysisData.schools.map((school, index) => {
                 return <option key={index}>{school}</option>;
-              })}
-          </select>
-        </div>
-        {/* camps */}
-        <div className="my-2">
-          <label htmlFor="camps">Select Camp</label>
-          <select
-            className="mx-2 px-2 py-1 bg-indigo-600 text-white border-none outline-none w-40"
-            name="camps"
-            id="camps"
-            onChange={changeCampFilterHandler}
-          >
-            {analysisData.camps &&
-              analysisData.camps.map((camp, index) => {
-                return <option key={index}>{camp}</option>;
               })}
           </select>
         </div>

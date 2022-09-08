@@ -16,6 +16,8 @@ export type AnalysisStateType = {
     countries: [];
     schools: [];
     camps: [];
+    months: [];
+    compares: [];
     filters: {
       country: string;
       school: string;
@@ -30,6 +32,8 @@ const initialData = {
   countries: [],
   schools: [],
   camps: [],
+  months: [],
+  compares: [],
   filters: {
     country: "",
     school: "",
@@ -44,32 +48,41 @@ const analysisDataSlice = createSlice({
     setData(state, action) {
       // set all data
       state.data = action.payload;
+      // set filtered data
       state.filteredData = state.data;
-      // set countries filter
+      // set countries
       const allCountries = state.data.map((row: AnalysisDataType) => {
         return row.country;
       }) as [];
       state.countries = allCountries.filter((item, index) => {
         return allCountries.indexOf(item) === index;
       });
-      // set schools filter
+      // set schools
       const allSchools = state.data.map((row: AnalysisDataType) => {
         return row.school;
       }) as [];
       state.schools = allSchools.filter((item, index) => {
         return allSchools.indexOf(item) === index;
       });
-      // set camps filter
+      // set camps
       const allCamps = state.data.map((row: AnalysisDataType) => {
         return row.camp;
       });
       state.camps = allCamps.filter((item, index) => {
         return allCamps.indexOf(item) === index;
       }) as [];
+      // set months
+      const allMonths = state.data.map((row: AnalysisDataType) => {
+        return row.month;
+      });
+      state.months = allMonths.filter((item, index) => {
+        return allMonths.indexOf(item) === index;
+      }) as [];
     },
     setCampFilter(state, action) {
       state.filters.camp = action.payload;
-      if (state.filteredData.length === 0) state.filteredData = state.data;
+      if (state.filteredData.length === 0 || state.filters.camp)
+        state.filteredData = state.data;
 
       state.filteredData = state.filteredData.filter(
         (row: AnalysisDataType) => {
@@ -79,7 +92,8 @@ const analysisDataSlice = createSlice({
     },
     setSchoolFilter(state, action) {
       state.filters.school = action.payload;
-      if (state.filteredData.length === 0) state.filteredData = state.data;
+      if (state.filteredData.length === 0 || state.filters.school)
+        state.filteredData = state.data;
 
       state.filteredData = state.filteredData.filter(
         (row: AnalysisDataType) => {
@@ -98,13 +112,18 @@ const analysisDataSlice = createSlice({
     },
     setCountryFilter(state, action) {
       state.filters.country = action.payload;
-      if (state.filteredData.length === 0) state.filteredData = state.data;
+      if (state.filteredData.length === 0 || state.filters.country)
+        state.filteredData = state.data;
 
       state.filteredData = state.filteredData.filter(
         (row: AnalysisDataType) => {
           return row.country === action.payload;
         }
       );
+    },
+    setCompares(state, action) {
+      // FIXME: TypeScript Error
+      // state.compares.push(action.payload);
     },
     clearData() {
       return initialData;
