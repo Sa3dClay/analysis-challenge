@@ -15,7 +15,7 @@ export type AnalysisStateType = {
     countriesFilter: [];
     schoolsFilter: [];
     campsFilter: [];
-  }
+  };
 };
 
 const initialData = {
