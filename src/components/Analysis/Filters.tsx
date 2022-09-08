@@ -1,6 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { analysisDataActions, AnalysisStateType } from "../../store/analysis.slice";
+import {
+  analysisDataActions,
+  AnalysisStateType,
+} from "../../store/analysis.slice";
 
 const Filters = () => {
   const dispatch = useDispatch();

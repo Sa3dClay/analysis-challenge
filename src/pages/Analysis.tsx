@@ -4,7 +4,7 @@ import { Loader } from "../components/UI/Loader";
 import { analysisDataActions } from "../store/analysis.slice";
 
 const Filters = React.lazy(() => import("../components/Analysis/Filters"));
-const Details = React.lazy(() => import("../components/Analysis/Details"));
+const Classes = React.lazy(() => import("../components/Analysis/Classes"));
 
 const Analysis = () => {
   const dispatch = useDispatch();
@@ -36,14 +36,15 @@ const Analysis = () => {
         <h1 className="text-4xl py-4 text-indigo-800">Analysis Chart</h1>
         <h2 className="text-2xl py-4 text-indigo-700">Number of Lessons</h2>
         <Filters />
-        <div className="grid grid-cols-4">
+        {/* Details & Chart */}
+        <div className="grid grid-cols-10 bg-slate-200 p-2">
           {/* chart */}
-          <div className="col-span-3">
+          <div className="col-span-7">
             <p>Chart</p>
           </div>
           {/* details */}
-          <div className="col-span-1">
-            <Details />
+          <div className="col-span-3">
+            <Classes />
           </div>
         </div>
       </div>
