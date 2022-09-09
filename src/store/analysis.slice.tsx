@@ -80,9 +80,10 @@ const analysisDataSlice = createSlice({
       }) as [];
     },
     setCampFilter(state, action) {
-      state.filters.camp = action.payload;
       if (state.filteredData.length === 0 || state.filters.camp)
         state.filteredData = state.data;
+
+      state.filters.camp = action.payload;
 
       state.filteredData = state.filteredData.filter(
         (row: AnalysisDataType) => {
@@ -91,9 +92,10 @@ const analysisDataSlice = createSlice({
       );
     },
     setSchoolFilter(state, action) {
-      state.filters.school = action.payload;
       if (state.filteredData.length === 0 || state.filters.school)
         state.filteredData = state.data;
+
+      state.filters.school = action.payload;
 
       state.filteredData = state.filteredData.filter(
         (row: AnalysisDataType) => {
@@ -111,9 +113,10 @@ const analysisDataSlice = createSlice({
       }
     },
     setCountryFilter(state, action) {
-      state.filters.country = action.payload;
       if (state.filteredData.length === 0 || state.filters.country)
         state.filteredData = state.data;
+
+      state.filters.country = action.payload;
 
       state.filteredData = state.filteredData.filter(
         (row: AnalysisDataType) => {
