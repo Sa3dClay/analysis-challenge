@@ -13,10 +13,10 @@ export type AnalysisStateType = {
   analysisData: {
     data: AnalysisDataType[];
     filteredData: AnalysisDataType[];
-    countries: [];
-    schools: [];
-    camps: [];
-    months: [];
+    countries: string[];
+    schools: string[];
+    camps: string[];
+    months: string[];
     filters: {
       country: string;
       school: string;
