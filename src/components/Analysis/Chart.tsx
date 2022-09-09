@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,7 +9,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { Line } from "react-chartjs-2";
+import { getDatasetAtEvent, Line } from "react-chartjs-2";
 import { useSelector } from "react-redux";
 import {
   AnalysisDataType,
@@ -40,9 +40,21 @@ const options = {
 };
 
 const Chart = () => {
+  const chartRef = useRef();
   const analysisData = useSelector(
     (state: AnalysisStateType) => state.analysisData
   );
+
+  const onClickHandler = (event: React.MouseEvent<HTMLCanvasElement>) => {
+    const { current: chart } = chartRef;
+
+    if (!chart) {
+      return;
+    }
+
+    console.log(getDatasetAtEvent(chart, event));
+  };
+
   const labels = analysisData.months;
   const datasets = [
     {
@@ -61,7 +73,12 @@ const Chart = () => {
 
   return (
     <>
-      <Line options={options} data={data} />
+      <Line
+        options={options}
+        data={data}
+        ref={chartRef}
+        onClick={onClickHandler}
+      />
     </>
   );
 };
