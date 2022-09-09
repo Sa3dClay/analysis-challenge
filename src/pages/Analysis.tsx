@@ -42,7 +42,7 @@ const Analysis = () => {
         <div className="grid md:grid-cols-4 lg:grid-cols-10 bg-slate-200 p-2">
           {/* chart */}
           <div className="md:col-span-3 lg:col-span-7">
-            {/* <Chart /> */}
+            <Chart />
           </div>
           {/* details */}
           <div className="md:col-span-1 lg:col-span-3">

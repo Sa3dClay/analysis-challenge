@@ -44,16 +44,16 @@ const Chart = () => {
     (state: AnalysisStateType) => state.analysisData
   );
   const labels = analysisData.months;
-  // TODO: need to make it compare only two sets
-  const datasets = analysisData.filteredData.map((row: AnalysisDataType) => {
-    return {
-      label: row.school,
-      data: labels.map(() => row.lessons),
+  const datasets = [
+    {
+      label: "Lessons",
+      data: analysisData.filteredData.map(
+        (row: AnalysisDataType) => row.lessons
+      ),
       borderColor: "#3498db",
       backgroundColor: "#2ecc71",
-    };
-  });
-
+    },
+  ];
   const data = {
     labels,
     datasets,

@@ -11,13 +11,12 @@ export type AnalysisDataType = {
 
 export type AnalysisStateType = {
   analysisData: {
-    data: [];
-    filteredData: [];
+    data: AnalysisDataType[];
+    filteredData: AnalysisDataType[];
     countries: [];
     schools: [];
     camps: [];
     months: [];
-    compares: [];
     filters: {
       country: string;
       school: string;
@@ -33,7 +32,6 @@ const initialData = {
   schools: [],
   camps: [],
   months: [],
-  compares: [],
   filters: {
     country: "",
     school: "",
@@ -123,10 +121,6 @@ const analysisDataSlice = createSlice({
           return row.country === action.payload;
         }
       );
-    },
-    setCompares(state, action) {
-      // FIXME: TypeScript Error
-      // state.compares.push(action.payload);
     },
     clearData() {
       return initialData;

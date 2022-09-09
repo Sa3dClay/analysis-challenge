@@ -1,13 +1,11 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {
-  analysisDataActions,
   AnalysisDataType,
   AnalysisStateType,
 } from "../../store/analysis.slice";
 
 const Classes = () => {
-  const dispatch = useDispatch()
   const analysisData = useSelector(
     (state: AnalysisStateType) => state.analysisData
   );
@@ -18,8 +16,8 @@ const Classes = () => {
   });
 
   const addRowToCompares = (row: AnalysisDataType) => {
-    dispatch(analysisDataActions.setCompares(row))
-  }
+    console.log(row);
+  };
 
   return (
     <div className="h-96 overflow-y-scroll text-gray-800 border-l-2 pl-5 border-indigo-800">
