@@ -33,9 +33,9 @@ const Classes = () => {
         )}
       </div>
       {/* classes */}
-      {analysisData.filteredData.map((row: AnalysisDataType, index) => {
+      {analysisData.filteredData.map((row: AnalysisDataType) => {
         return (
-          <div key={index}>
+          <div key={row.id}>
             <div className="py-2 grid grid-cols-4">
               <div className="col-span-1 flex justify-end pr-2">
                 <button onClick={() => addSchoolToCompares(row)}>
