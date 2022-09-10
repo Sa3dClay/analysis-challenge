@@ -40,6 +40,7 @@ const Filters = () => {
             name="countries"
             id="countries"
             onChange={changeCountryFilterHandler}
+            value={analysisData.filters.country}
           >
             {analysisData.countries &&
               analysisData.countries.map((country, index) => {
@@ -55,6 +56,7 @@ const Filters = () => {
             name="camps"
             id="camps"
             onChange={changeCampFilterHandler}
+            value={analysisData.filters.camp}
           >
             {analysisData.camps &&
               analysisData.camps.map((camp, index) => {
@@ -70,6 +72,7 @@ const Filters = () => {
             name="schools"
             id="schools"
             onChange={changeSchoolFilterHandler}
+            value={analysisData.filters.school}
           >
             <option value="all">Show All</option>
             {analysisData.schools &&

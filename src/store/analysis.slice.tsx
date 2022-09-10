@@ -35,9 +35,9 @@ const initialData = {
   camps: [],
   months: [],
   filters: {
-    country: "",
-    school: "",
-    camp: "",
+    country: localStorage.getItem("countryFilter") ?? "",
+    school: localStorage.getItem("schoolFilter") ?? "",
+    camp: localStorage.getItem("campFilter") ?? "",
   },
   schoolsToCompare: [""],
 };
