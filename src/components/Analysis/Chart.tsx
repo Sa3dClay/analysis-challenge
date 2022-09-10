@@ -8,8 +8,14 @@ import {
   Title,
   Tooltip,
   Legend,
+  InteractionItem,
 } from "chart.js";
-import { getDatasetAtEvent, Line } from "react-chartjs-2";
+import {
+  getDatasetAtEvent,
+  getElementAtEvent,
+  getElementsAtEvent,
+  Line,
+} from "react-chartjs-2";
 import { useSelector } from "react-redux";
 import {
   AnalysisDataType,
@@ -45,6 +51,28 @@ const Chart = () => {
     (state: AnalysisStateType) => state.analysisData
   );
 
+  const printDatasetAtEvent = (dataset: InteractionItem[]) => {
+    if (!dataset.length) return;
+
+    const datasetIndex = dataset[0].datasetIndex;
+
+    console.log(data.datasets[datasetIndex].label);
+  };
+
+  const printElementAtEvent = (element: InteractionItem[]) => {
+    if (!element.length) return;
+
+    const { datasetIndex, index } = element[0];
+
+    console.log(data.labels[index], data.datasets[datasetIndex].data[index]);
+  };
+
+  const printElementsAtEvent = (elements: InteractionItem[]) => {
+    if (!elements.length) return;
+
+    console.log(elements.length);
+  };
+
   const onClickHandler = (event: React.MouseEvent<HTMLCanvasElement>) => {
     const { current: chart } = chartRef;
 
@@ -52,7 +80,9 @@ const Chart = () => {
       return;
     }
 
-    console.log(getDatasetAtEvent(chart, event));
+    printDatasetAtEvent(getDatasetAtEvent(chart, event));
+    printElementAtEvent(getElementAtEvent(chart, event));
+    printElementsAtEvent(getElementsAtEvent(chart, event));
   };
 
   const labels = analysisData.months;
