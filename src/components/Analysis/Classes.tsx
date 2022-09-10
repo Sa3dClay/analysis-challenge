@@ -1,11 +1,13 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
+  analysisDataActions,
   AnalysisDataType,
   AnalysisStateType,
 } from "../../store/analysis.slice";
 
 const Classes = () => {
+  const dispatch = useDispatch();
   const analysisData = useSelector(
     (state: AnalysisStateType) => state.analysisData
   );
@@ -15,8 +17,8 @@ const Classes = () => {
     lessonsCounter += row.lessons;
   });
 
-  const addRowToCompares = (row: AnalysisDataType) => {
-    console.log(row);
+  const addSchoolToCompares = (row: AnalysisDataType) => {
+    dispatch(analysisDataActions.toggleSchoolCompares(row.school));
   };
 
   return (
@@ -36,8 +38,12 @@ const Classes = () => {
           <div key={index}>
             <div className="py-2 grid grid-cols-4">
               <div className="col-span-1 flex justify-end pr-2">
-                <button onClick={() => addRowToCompares(row)}>
-                  <span className="material-symbols-outlined text-xl pr-1 text-gray-400">
+                <button onClick={() => addSchoolToCompares(row)}>
+                  <span
+                    className={`material-symbols-outlined text-xl pr-1 text-gray-400 ${
+                      row.isActive ? "text-indigo-600" : ""
+                    }`}
+                  >
                     radio_button_checked
                   </span>
                 </button>

@@ -10,12 +10,7 @@ import {
   Legend,
   InteractionItem,
 } from "chart.js";
-import {
-  getDatasetAtEvent,
-  getElementAtEvent,
-  getElementsAtEvent,
-  Line,
-} from "react-chartjs-2";
+import { getDatasetAtEvent, getElementAtEvent, Line } from "react-chartjs-2";
 import { useSelector } from "react-redux";
 import {
   AnalysisDataType,
@@ -67,12 +62,6 @@ const Chart = () => {
     console.log(data.labels[index], data.datasets[datasetIndex].data[index]);
   };
 
-  const printElementsAtEvent = (elements: InteractionItem[]) => {
-    if (!elements.length) return;
-
-    console.log(elements.length);
-  };
-
   const onClickHandler = (event: React.MouseEvent<HTMLCanvasElement>) => {
     const { current: chart } = chartRef;
 
@@ -82,20 +71,19 @@ const Chart = () => {
 
     printDatasetAtEvent(getDatasetAtEvent(chart, event));
     printElementAtEvent(getElementAtEvent(chart, event));
-    printElementsAtEvent(getElementsAtEvent(chart, event));
   };
 
   const labels = analysisData.months;
-  const datasets = [
-    {
-      label: "Lessons",
-      data: analysisData.filteredData.map(
-        (row: AnalysisDataType) => row.lessons
-      ),
-      borderColor: "#3498db",
-      backgroundColor: "#2ecc71",
-    },
-  ];
+  const datasets = analysisData.schoolsToCompare.map((school) => {
+    return {
+      label: school,
+      data: analysisData.filteredData
+        .filter((row: AnalysisDataType) => row.school === school)
+        .map((row: AnalysisDataType) => row.lessons),
+      borderColor: ["#1abc9c", "#3498db"],
+      backgroundColor: ["#ecf0f1"],
+    };
+  });
   const data = {
     labels,
     datasets,

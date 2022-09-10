@@ -7,6 +7,7 @@ export type AnalysisDataType = {
   lessons: number;
   month: string;
   school: string;
+  isActive: boolean;
 };
 
 export type AnalysisStateType = {
@@ -22,6 +23,7 @@ export type AnalysisStateType = {
       school: string;
       camp: string;
     };
+    schoolsToCompare: string[];
   };
 };
 
@@ -37,6 +39,7 @@ const initialData = {
     school: "",
     camp: "",
   },
+  schoolsToCompare: [""],
 };
 
 const analysisDataSlice = createSlice({
@@ -47,7 +50,10 @@ const analysisDataSlice = createSlice({
       // set all data
       state.data = action.payload;
       // set filtered data
-      state.filteredData = state.data;
+      state.filteredData = state.data.map((row: AnalysisDataType) => ({
+        ...row,
+        isActive: false,
+      })) as [];
       // set countries
       const allCountries = state.data.map((row: AnalysisDataType) => {
         return row.country;
@@ -81,7 +87,9 @@ const analysisDataSlice = createSlice({
       if (state.filteredData.length === 0 || state.filters.camp)
         state.filteredData = state.data;
 
+      state.schoolsToCompare = [];
       state.filters.camp = action.payload;
+      localStorage.setItem("campFilter", action.payload);
 
       state.filteredData = state.filteredData.filter(
         (row: AnalysisDataType) => {
@@ -93,7 +101,9 @@ const analysisDataSlice = createSlice({
       if (state.filteredData.length === 0 || state.filters.school)
         state.filteredData = state.data;
 
+      state.schoolsToCompare = [];
       state.filters.school = action.payload;
+      localStorage.setItem("schoolFilter", action.payload);
 
       state.filteredData = state.filteredData.filter(
         (row: AnalysisDataType) => {
@@ -114,13 +124,32 @@ const analysisDataSlice = createSlice({
       if (state.filteredData.length === 0 || state.filters.country)
         state.filteredData = state.data;
 
+      state.schoolsToCompare = [];
       state.filters.country = action.payload;
+      localStorage.setItem("countryFilter", action.payload);
 
       state.filteredData = state.filteredData.filter(
         (row: AnalysisDataType) => {
           return row.country === action.payload;
         }
       );
+    },
+    toggleSchoolCompares(state, action) {
+      const existsIndex = state.schoolsToCompare.findIndex(
+        (school) => school === action.payload
+      );
+
+      if (existsIndex > -1) {
+        state.schoolsToCompare.splice(existsIndex, 1);
+        state.filteredData.forEach((row: AnalysisDataType) => {
+          if (row.school === action.payload) row.isActive = false;
+        });
+      } else {
+        state.schoolsToCompare.push(action.payload);
+        state.filteredData.forEach((row: AnalysisDataType) => {
+          if (row.school === action.payload) row.isActive = true;
+        });
+      }
     },
     clearData() {
       return initialData;
