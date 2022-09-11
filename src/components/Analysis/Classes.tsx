@@ -17,9 +17,47 @@ const Classes = () => {
     lessonsCounter += row.lessons;
   });
 
-  const addSchoolToCompares = (row: AnalysisDataType) => {
-    dispatch(analysisDataActions.toggleSchoolCompares(row.school));
+  const addSchoolToCompares = (school: string) => {
+    dispatch(analysisDataActions.toggleSchoolCompares(school));
   };
+
+  const classesTemplate = (
+    <>
+      {analysisData.schools.map((school, index) => {
+        let lessonsPerSchool = 0;
+        analysisData.filteredData
+          .filter((row) => row.school === school)
+          .forEach((row) => (lessonsPerSchool += row.lessons));
+        const schoolIsActive = analysisData.schoolsToCompare.find(
+          (item) => item === school
+        );
+
+        return (
+          <div key={index}>
+            {lessonsPerSchool > 0 && (
+              <div className="py-2 grid grid-cols-4">
+                <div className="col-span-1 flex justify-end pr-2">
+                  <button onClick={() => addSchoolToCompares(school)}>
+                    <span
+                      className={`material-symbols-outlined text-xl pr-1 text-gray-400 ${
+                        schoolIsActive ? "text-indigo-600" : ""
+                      }`}
+                    >
+                      radio_button_checked
+                    </span>
+                  </button>
+                </div>
+                <div className="col-span-3">
+                  <p className="text-sm">{lessonsPerSchool} Lessons</p>
+                  <p className="text-xs text-gray-500">{school}</p>
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </>
+  );
 
   return (
     <div className="h-[96] lg:h-[500px] overflow-y-scroll text-gray-800 border-l-2 pl-5 border-indigo-800">
@@ -32,30 +70,8 @@ const Classes = () => {
           <p className="text-xs text-gray-500">{analysisData.filters.camp}</p>
         )}
       </div>
-      {/* classes */}
-      {analysisData.filteredData.map((row: AnalysisDataType) => {
-        return (
-          <div key={row.id}>
-            <div className="py-2 grid grid-cols-4">
-              <div className="col-span-1 flex justify-end pr-2">
-                <button onClick={() => addSchoolToCompares(row)}>
-                  <span
-                    className={`material-symbols-outlined text-xl pr-1 text-gray-400 ${
-                      row.isActive ? "text-indigo-600" : ""
-                    }`}
-                  >
-                    radio_button_checked
-                  </span>
-                </button>
-              </div>
-              <div className="col-span-3">
-                <p className="text-sm">{row.lessons} Lessons</p>
-                <p className="text-xs text-gray-500">{row.school}</p>
-              </div>
-            </div>
-          </div>
-        );
-      })}
+
+      {classesTemplate}
     </div>
   );
 };

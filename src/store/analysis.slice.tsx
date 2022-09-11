@@ -7,7 +7,6 @@ export type AnalysisDataType = {
   lessons: number;
   month: string;
   school: string;
-  isActive: boolean;
 };
 
 export type AnalysisStateType = {
@@ -50,10 +49,7 @@ const analysisDataSlice = createSlice({
       // set all data
       state.data = action.payload;
       // set filtered data
-      state.filteredData = state.data.map((row: AnalysisDataType) => ({
-        ...row,
-        isActive: false,
-      })) as [];
+      state.filteredData = state.data;
       // set countries
       const allCountries = state.data.map((row: AnalysisDataType) => {
         return row.country;
@@ -139,17 +135,8 @@ const analysisDataSlice = createSlice({
         (school) => school === action.payload
       );
 
-      if (existsIndex > -1) {
-        state.schoolsToCompare.splice(existsIndex, 1);
-        state.filteredData.forEach((row: AnalysisDataType) => {
-          if (row.school === action.payload) row.isActive = false;
-        });
-      } else {
-        state.schoolsToCompare.push(action.payload);
-        state.filteredData.forEach((row: AnalysisDataType) => {
-          if (row.school === action.payload) row.isActive = true;
-        });
-      }
+      if (existsIndex > -1) state.schoolsToCompare.splice(existsIndex, 1);
+      else state.schoolsToCompare.push(action.payload);
     },
     clearData() {
       return initialData;
