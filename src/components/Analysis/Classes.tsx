@@ -1,10 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreStateType } from "../../store";
-import {
-  analysisDataActions,
-  AnalysisDataType,
-} from "../../store/analysis.slice";
+import { analysisDataActions } from "../../store/analysis.slice";
 
 const Classes = () => {
   const dispatch = useDispatch();
@@ -13,7 +10,7 @@ const Classes = () => {
   );
 
   let lessonsCounter = 0;
-  analysisData.filteredData.forEach((row: AnalysisDataType) => {
+  analysisData.filteredData.forEach((row) => {
     lessonsCounter += row.lessons;
   });
 

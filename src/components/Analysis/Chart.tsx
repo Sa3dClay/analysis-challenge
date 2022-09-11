@@ -13,7 +13,6 @@ import {
 } from "chart.js";
 import { getDatasetAtEvent, getElementAtEvent, Line } from "react-chartjs-2";
 import { useDispatch, useSelector } from "react-redux";
-import { AnalysisDataType } from "../../store/analysis.slice";
 import { detailsDataActions } from "../../store/details.slice";
 import { StoreStateType } from "../../store";
 
@@ -90,8 +89,8 @@ const Chart = () => {
     return {
       label: school,
       data: analysisData.filteredData
-        .filter((row: AnalysisDataType) => row.school === school)
-        .map((row: AnalysisDataType) => row.lessons),
+        .filter((row) => row.school === school)
+        .map((row) => row.lessons),
       borderColor: ["#1abc9c", "#3498db"],
       backgroundColor: ["#ecf0f1"],
     };
