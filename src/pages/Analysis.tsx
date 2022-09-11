@@ -1,8 +1,9 @@
 import React, { Suspense, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Chart from "../components/Analysis/Chart";
 import Error from "../components/UI/Error";
 import { Loader } from "../components/UI/Loader";
+import { StoreStateType } from "../store";
 import { analysisDataActions } from "../store/analysis.slice";
 
 const Filters = React.lazy(() => import("../components/Analysis/Filters"));
@@ -12,6 +13,9 @@ const Analysis = () => {
   const dispatch = useDispatch();
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const analysisData = useSelector(
+    (state: StoreStateType) => state.analysisData
+  );
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -32,6 +36,8 @@ const Analysis = () => {
     const prepareData = async () => {
       await fetchData();
     };
+
+    if (analysisData.data.length > 0) return;
 
     prepareData();
   }, []);
