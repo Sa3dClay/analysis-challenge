@@ -15,6 +15,7 @@ const initialData = {
   countries: [],
   schools: [],
   camps: [],
+  months: [],
   filters: {
     country: "",
     school: "",
@@ -32,6 +33,7 @@ const analysisDataSlice = createSlice({
       state.data = action.payload;
       // set filtered data
       state.filteredData = state.data;
+
       // set countries
       const allCountries = state.data.map((row: AnalysisDataType) => {
         return row.country;
@@ -52,6 +54,13 @@ const analysisDataSlice = createSlice({
       });
       state.camps = allCamps.filter((item, index) => {
         return allCamps.indexOf(item) === index;
+      }) as [];
+      // set months
+      const allMonths = state.data.map((row: AnalysisDataType) => {
+        return row.month;
+      });
+      state.months = allMonths.filter((item, index) => {
+        return allMonths.indexOf(item) === index;
       }) as [];
     },
     setCampFilter(state, action) {

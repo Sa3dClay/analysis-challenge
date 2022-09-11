@@ -9,6 +9,7 @@ export type StoreStateType = {
     countries: string[];
     schools: string[];
     camps: string[];
+    months: string[];
     filters: {
       country: string;
       school: string;

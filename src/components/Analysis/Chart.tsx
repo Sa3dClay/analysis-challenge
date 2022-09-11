@@ -83,20 +83,8 @@ const Chart = () => {
     navigateToItemDetails();
   };
 
-  const labels = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
+  // FIXME: labels sorting is wrong
+  const labels = analysisData.months;
 
   const datasets = analysisData.schoolsToCompare.map((school) => {
     return {
