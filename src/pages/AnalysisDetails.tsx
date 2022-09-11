@@ -8,7 +8,8 @@ const AnalysisDetails = () => {
   const selectedRow = storeData.analysisData.data.find(
     (row) =>
       row.school === storeData.detailsData.school &&
-      row.month === storeData.detailsData.month
+      // row.month === storeData.detailsData.month &&
+      row.lessons === storeData.detailsData.lessons
   );
 
   const detailsTemplate = (
