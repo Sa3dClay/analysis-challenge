@@ -1,14 +1,12 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  analysisDataActions,
-  AnalysisStateType,
-} from "../../store/analysis.slice";
+import { StoreStateType } from "../../store";
+import { analysisDataActions } from "../../store/analysis.slice";
 
 const Filters = () => {
   const dispatch = useDispatch();
   const analysisData = useSelector(
-    (state: AnalysisStateType) => state.analysisData
+    (state: StoreStateType) => state.analysisData
   );
 
   const changeCountryFilterHandler = (

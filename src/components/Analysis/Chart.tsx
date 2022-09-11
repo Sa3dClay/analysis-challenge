@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,11 +12,10 @@ import {
   InteractionItem,
 } from "chart.js";
 import { getDatasetAtEvent, getElementAtEvent, Line } from "react-chartjs-2";
-import { useSelector } from "react-redux";
-import {
-  AnalysisDataType,
-  AnalysisStateType,
-} from "../../store/analysis.slice";
+import { useDispatch, useSelector } from "react-redux";
+import { AnalysisDataType } from "../../store/analysis.slice";
+import { detailsDataActions } from "../../store/details.slice";
+import { StoreStateType } from "../../store";
 
 ChartJS.register(
   CategoryScale,
@@ -42,8 +42,10 @@ const options = {
 
 const Chart = () => {
   const chartRef = useRef();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const analysisData = useSelector(
-    (state: AnalysisStateType) => state.analysisData
+    (state: StoreStateType) => state.analysisData
   );
 
   const printDatasetAtEvent = (dataset: InteractionItem[]) => {
@@ -51,7 +53,7 @@ const Chart = () => {
 
     const datasetIndex = dataset[0].datasetIndex;
 
-    console.log(data.datasets[datasetIndex].label);
+    dispatch(detailsDataActions.setSchool(data.datasets[datasetIndex].label));
   };
 
   const printElementAtEvent = (element: InteractionItem[]) => {
@@ -59,7 +61,14 @@ const Chart = () => {
 
     const { datasetIndex, index } = element[0];
 
-    console.log(data.labels[index], data.datasets[datasetIndex].data[index]);
+    dispatch(detailsDataActions.setMonth(data.labels[index]));
+    dispatch(
+      detailsDataActions.setLessons(data.datasets[datasetIndex].data[index])
+    );
+  };
+
+  const navigateToItemDetails = () => {
+    navigate("/details");
   };
 
   const onClickHandler = (event: React.MouseEvent<HTMLCanvasElement>) => {
@@ -71,9 +80,24 @@ const Chart = () => {
 
     printDatasetAtEvent(getDatasetAtEvent(chart, event));
     printElementAtEvent(getElementAtEvent(chart, event));
+    navigateToItemDetails();
   };
 
-  const labels = analysisData.months;
+  const labels = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
   const datasets = analysisData.schoolsToCompare.map((school) => {
     return {
       label: school,
@@ -84,6 +108,7 @@ const Chart = () => {
       backgroundColor: ["#ecf0f1"],
     };
   });
+
   const data = {
     labels,
     datasets,

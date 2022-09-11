@@ -29,7 +29,11 @@ const Analysis = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    const prepareData = async () => {
+      await fetchData();
+    };
+
+    prepareData();
   }, []);
 
   const analysisTemplate = (
@@ -37,8 +41,8 @@ const Analysis = () => {
       <div className="container mx-auto p-4">
         <h1 className="text-4xl py-2 text-indigo-800">Analysis Chart</h1>
         <h2 className="text-2xl py-2 text-indigo-700">Number of Lessons</h2>
+        {/* Filters */}
         <Filters />
-        {/* Details & Chart */}
         <div className="grid md:grid-cols-4 lg:grid-cols-10 bg-slate-200 p-2">
           {/* chart */}
           <div className="md:col-span-3 lg:col-span-7">

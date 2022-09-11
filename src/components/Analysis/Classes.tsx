@@ -1,15 +1,15 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { StoreStateType } from "../../store";
 import {
   analysisDataActions,
   AnalysisDataType,
-  AnalysisStateType,
 } from "../../store/analysis.slice";
 
 const Classes = () => {
   const dispatch = useDispatch();
   const analysisData = useSelector(
-    (state: AnalysisStateType) => state.analysisData
+    (state: StoreStateType) => state.analysisData
   );
 
   let lessonsCounter = 0;

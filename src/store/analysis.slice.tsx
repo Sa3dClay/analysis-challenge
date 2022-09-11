@@ -9,34 +9,16 @@ export type AnalysisDataType = {
   school: string;
 };
 
-export type AnalysisStateType = {
-  analysisData: {
-    data: AnalysisDataType[];
-    filteredData: AnalysisDataType[];
-    countries: string[];
-    schools: string[];
-    camps: string[];
-    months: string[];
-    filters: {
-      country: string;
-      school: string;
-      camp: string;
-    };
-    schoolsToCompare: string[];
-  };
-};
-
 const initialData = {
   data: [],
   filteredData: [],
   countries: [],
   schools: [],
   camps: [],
-  months: [],
   filters: {
-    country: localStorage.getItem("countryFilter") ?? "",
-    school: localStorage.getItem("schoolFilter") ?? "",
-    camp: localStorage.getItem("campFilter") ?? "",
+    country: "",
+    school: "",
+    camp: "",
   },
   schoolsToCompare: [""],
 };
@@ -71,13 +53,6 @@ const analysisDataSlice = createSlice({
       state.camps = allCamps.filter((item, index) => {
         return allCamps.indexOf(item) === index;
       }) as [];
-      // set months
-      const allMonths = state.data.map((row: AnalysisDataType) => {
-        return row.month;
-      });
-      state.months = allMonths.filter((item, index) => {
-        return allMonths.indexOf(item) === index;
-      }) as [];
     },
     setCampFilter(state, action) {
       if (state.filteredData.length === 0 || state.filters.camp)
@@ -85,7 +60,6 @@ const analysisDataSlice = createSlice({
 
       state.schoolsToCompare = [];
       state.filters.camp = action.payload;
-      localStorage.setItem("campFilter", action.payload);
 
       state.filteredData = state.filteredData.filter(
         (row: AnalysisDataType) => {
@@ -99,7 +73,6 @@ const analysisDataSlice = createSlice({
 
       state.schoolsToCompare = [];
       state.filters.school = action.payload;
-      localStorage.setItem("schoolFilter", action.payload);
 
       state.filteredData = state.filteredData.filter(
         (row: AnalysisDataType) => {
@@ -122,7 +95,6 @@ const analysisDataSlice = createSlice({
 
       state.schoolsToCompare = [];
       state.filters.country = action.payload;
-      localStorage.setItem("countryFilter", action.payload);
 
       state.filteredData = state.filteredData.filter(
         (row: AnalysisDataType) => {
