@@ -36,8 +36,8 @@ const Classes = () => {
                 <div className="col-span-1 flex justify-end pr-2">
                   <button onClick={() => addSchoolToCompares(school)}>
                     <span
-                      className={`material-symbols-outlined text-xl pr-1 text-gray-400 ${
-                        schoolIsActive ? "text-indigo-600" : ""
+                      className={`material-symbols-outlined text-xl pr-1 ${
+                        schoolIsActive ? "text-indigo-600" : "text-gray-400"
                       }`}
                     >
                       radio_button_checked
