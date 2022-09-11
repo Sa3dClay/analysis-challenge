@@ -45,8 +45,7 @@ const Analysis = () => {
   const analysisTemplate = (
     <Suspense fallback={<Loader />}>
       <div className="container mx-auto p-4">
-        <h1 className="text-4xl py-2 text-indigo-800">Analysis Chart</h1>
-        <h2 className="text-2xl py-2 text-indigo-700">Number of Lessons</h2>
+        <h1 className="text-4xl py-4 text-indigo-800 font-bold">Analysis Chart</h1>
         {/* Filters */}
         <Filters />
         <div className="grid md:grid-cols-4 lg:grid-cols-10 bg-slate-200 p-2">
