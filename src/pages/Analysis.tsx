@@ -13,9 +13,9 @@ const Analysis = () => {
   const dispatch = useDispatch();
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const analysisData = useSelector(
-    (state: StoreStateType) => state.analysisData
-  );
+
+  const storeData = useSelector((state: StoreStateType) => state);
+  const darkTheme = storeData.uiData.darkTheme;
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -37,7 +37,7 @@ const Analysis = () => {
       await fetchData();
     };
 
-    if (analysisData.data.length > 0) return;
+    if (storeData.analysisData.data.length > 0) return;
 
     prepareData();
   }, []);
@@ -45,7 +45,13 @@ const Analysis = () => {
   const analysisTemplate = (
     <Suspense fallback={<Loader />}>
       <div className="container mx-auto p-4">
-        <h1 className="text-4xl py-4 text-indigo-800 font-bold">Analysis Chart</h1>
+        <h1
+          className={`text-4xl py-4 text-indigo-800 font-bold ${
+            darkTheme && "text-indigo-400"
+          }`}
+        >
+          Analysis Chart
+        </h1>
         {/* Filters */}
         <Filters />
         <div className="grid md:grid-cols-4 lg:grid-cols-10 bg-slate-200 p-2">

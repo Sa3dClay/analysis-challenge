@@ -5,9 +5,8 @@ import { analysisDataActions } from "../../store/analysis.slice";
 
 const Filters = () => {
   const dispatch = useDispatch();
-  const analysisData = useSelector(
-    (state: StoreStateType) => state.analysisData
-  );
+  const storeData = useSelector((state: StoreStateType) => state);
+  const darkTheme = storeData.uiData.darkTheme;
 
   const changeCountryFilterHandler = (
     event: React.FormEvent<HTMLSelectElement>
@@ -32,49 +31,64 @@ const Filters = () => {
       <div className="grid grid-cols-2 lg:grid-cols-3 justify-between py-4">
         {/* countries */}
         <div className="my-2">
-          <label htmlFor="countries">Select Country</label>
+          <label
+            htmlFor="countries"
+            className={`text-gray-800 ${darkTheme && "text-gray-200"}`}
+          >
+            Select Country
+          </label>
           <select
             className="mx-2 px-2 py-1 bg-indigo-600 text-white border-none outline-none w-40"
             name="countries"
             id="countries"
             onChange={changeCountryFilterHandler}
-            value={analysisData.filters.country}
+            value={storeData.analysisData.filters.country}
           >
-            {analysisData.countries &&
-              analysisData.countries.map((country, index) => {
+            {storeData.analysisData.countries &&
+              storeData.analysisData.countries.map((country, index) => {
                 return <option key={index}>{country}</option>;
               })}
           </select>
         </div>
         {/* camps */}
         <div className="my-2">
-          <label htmlFor="camps">Select Camp</label>
+          <label
+            htmlFor="camps"
+            className={`text-gray-800 ${darkTheme && "text-gray-200"}`}
+          >
+            Select Camp
+          </label>
           <select
             className="mx-2 px-2 py-1 bg-indigo-600 text-white border-none outline-none w-40"
             name="camps"
             id="camps"
             onChange={changeCampFilterHandler}
-            value={analysisData.filters.camp}
+            value={storeData.analysisData.filters.camp}
           >
-            {analysisData.camps &&
-              analysisData.camps.map((camp, index) => {
+            {storeData.analysisData.camps &&
+              storeData.analysisData.camps.map((camp, index) => {
                 return <option key={index}>{camp}</option>;
               })}
           </select>
         </div>
         {/* schools */}
         <div className="my-2">
-          <label htmlFor="schools">Select School</label>
+          <label
+            htmlFor="schools"
+            className={`text-gray-800 ${darkTheme && "text-gray-200"}`}
+          >
+            Select School
+          </label>
           <select
             className="mx-2 px-2 py-1 bg-indigo-600 text-white border-none outline-none w-40"
             name="schools"
             id="schools"
             onChange={changeSchoolFilterHandler}
-            value={analysisData.filters.school}
+            value={storeData.analysisData.filters.school}
           >
             <option value="all">Show All</option>
-            {analysisData.schools &&
-              analysisData.schools.map((school, index) => {
+            {storeData.analysisData.schools &&
+              storeData.analysisData.schools.map((school, index) => {
                 return <option key={index}>{school}</option>;
               })}
           </select>

@@ -4,6 +4,7 @@ import { StoreStateType } from "../store";
 
 const AnalysisDetails = () => {
   const storeData = useSelector((state: StoreStateType) => state);
+  const darkTheme = storeData.uiData.darkTheme;
 
   const selectedRow = storeData.analysisData.data.find(
     (row) =>
@@ -19,20 +20,32 @@ const AnalysisDetails = () => {
           <p className="bg-indigo-600 text-white px-2 py-1 font-bold text-2xl my-2">
             {selectedRow.school}
           </p>
-          <p className="py-1">
+          <p className={`py-1 text-gray-800 ${darkTheme && "text-gray-200"}`}>
             Country:{" "}
-            <span className="font-bold text-indigo-600">
+            <span
+              className={`font-bold text-indigo-600 ${
+                darkTheme && "text-indigo-400"
+              }`}
+            >
               {selectedRow.country}
             </span>
           </p>
-          <p className="py-1">
+          <p className={`py-1 text-gray-800 ${darkTheme && "text-gray-200"}`}>
             Camp:{" "}
-            <span className="font-bold text-indigo-600">
+            <span
+              className={`font-bold text-indigo-600 ${
+                darkTheme && "text-indigo-400"
+              }`}
+            >
               {selectedRow.camp}
             </span>
           </p>
-          <p className="py-1">
-            <span className="font-bold text-indigo-600">
+          <p className={`py-1 text-gray-800 ${darkTheme && "text-gray-200"}`}>
+            <span
+              className={`font-bold text-indigo-600 ${
+                darkTheme && "text-indigo-400"
+              }`}
+            >
               {selectedRow.lessons}
             </span>{" "}
             Lessons, {selectedRow.month}
