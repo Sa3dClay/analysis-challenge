@@ -14,7 +14,7 @@ function App() {
   );
 
   return (
-    <div className={`${darkTheme && "bg-gray-800"}`}>
+    <div className={`h-screen ${darkTheme && "bg-gray-800"}`}>
       <ThemeToggler />
       <Suspense fallback={<Loader />}>
         <Routes>
