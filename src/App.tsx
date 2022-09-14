@@ -1,10 +1,12 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
+import Loader from "./components/UI/Loader";
 import ThemeToggler from "./components/UI/ThemeToggler";
-import Analysis from "./pages/Analysis";
-import AnalysisDetails from "./pages/AnalysisDetails";
 import { StoreStateType } from "./store";
+
+const Analysis = React.lazy(() => import("./pages/Analysis"));
+const AnalysisDetails = React.lazy(() => import("./pages/AnalysisDetails"));
 
 function App() {
   const darkTheme = useSelector(
@@ -14,10 +16,12 @@ function App() {
   return (
     <div className={`${darkTheme && "bg-gray-800"}`}>
       <ThemeToggler />
-      <Routes>
-        <Route path="/" element={<Analysis />} />
-        <Route path="/details" element={<AnalysisDetails />} />
-      </Routes>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="/" element={<Analysis />} />
+          <Route path="/details" element={<AnalysisDetails />} />
+        </Routes>
+      </Suspense>
     </div>
   );
 }

@@ -1,19 +1,18 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Chart from "../components/Analysis/Chart";
 import Error from "../components/UI/Error";
-import { Loader } from "../components/UI/Loader";
+import Loader from "../components/UI/Loader";
 import { StoreStateType } from "../store";
 import { analysisDataActions } from "../store/analysis.slice";
 
 const Filters = React.lazy(() => import("../components/Analysis/Filters"));
 const Classes = React.lazy(() => import("../components/Analysis/Classes"));
+const Chart = React.lazy(() => import("../components/Analysis/Chart"));
 
 const Analysis = () => {
   const dispatch = useDispatch();
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
   const storeData = useSelector((state: StoreStateType) => state);
   const darkTheme = storeData.uiData.darkTheme;
 
