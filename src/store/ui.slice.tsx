@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialData = {
-  darkTheme: false,
+  // eslint-disable-next-line
+  darkTheme: JSON.parse(localStorage.getItem("dark")!) ? true : false,
 };
 
 const uiDataSlice = createSlice({
@@ -10,7 +11,8 @@ const uiDataSlice = createSlice({
   reducers: {
     toggleTheme(state) {
       state.darkTheme = !state.darkTheme;
-      console.log("dark theme", state.darkTheme);
+
+      localStorage.setItem("dark", JSON.stringify(state.darkTheme));
     },
   },
 });

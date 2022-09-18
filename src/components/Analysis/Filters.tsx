@@ -44,6 +44,7 @@ const Filters = () => {
             onChange={changeCountryFilterHandler}
             value={storeData.analysisData.filters.country}
           >
+            <option value="">Countries</option>
             {storeData.analysisData.countries &&
               storeData.analysisData.countries.map((country, index) => {
                 return <option key={index}>{country}</option>;
@@ -65,6 +66,7 @@ const Filters = () => {
             onChange={changeCampFilterHandler}
             value={storeData.analysisData.filters.camp}
           >
+            <option value="">Camps</option>
             {storeData.analysisData.camps &&
               storeData.analysisData.camps.map((camp, index) => {
                 return <option key={index}>{camp}</option>;
