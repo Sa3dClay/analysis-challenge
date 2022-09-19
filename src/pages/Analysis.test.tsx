@@ -1,19 +1,29 @@
-import { render, screen, act } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
+import { render } from "@testing-library/react";
+import Container from "../components/Container";
 import Analysis from "./Analysis";
-import store from "../store";
+
+const MockAnalysis = () => {
+  return (
+    <Container>
+      <Analysis />
+    </Container>
+  );
+};
 
 describe("Analysis Page", () => {
-  it("renders loader while fetching data", () => {
-    render(
-      <BrowserRouter>
-        <Provider store={store}>
-          <Analysis />
-        </Provider>
-      </BrowserRouter>
-    );
-    const loaderDiv = screen.getByTestId("infinity-spin");
-    expect(loaderDiv).toBeInTheDocument;
+  it("should renders loader while fetching data", async () => {
+    const { findByTestId } = render(<MockAnalysis />);
+
+    const loaderDiv = await findByTestId("infinity-spin");
+
+    expect(loaderDiv).toBeVisible;
+  });
+
+  it("should renders title after fetching data", async () => {
+    const { findByRole } = render(<MockAnalysis />);
+
+    const titleText = await findByRole("heading", { name: "Analysis Chart" });
+
+    expect(titleText).toBeVisible;
   });
 });
