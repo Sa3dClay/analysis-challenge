@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import Container from "../components/Container";
 import Analysis from "./Analysis";
 
@@ -31,33 +31,35 @@ describe("Analysis Page", () => {
   });
 
   it("should renders loader while fetching data", async () => {
-    const { findByTestId } = render(<MockAnalysis />);
+    render(<MockAnalysis />);
 
-    const loaderDiv = await findByTestId("infinity-spin");
+    const loaderDiv = await screen.findByTestId("infinity-spin");
 
     expect(loaderDiv).toBeVisible;
   });
 
   it("should renders title after fetching data", async () => {
-    const { findByRole } = render(<MockAnalysis />);
+    render(<MockAnalysis />);
 
-    const titleText = await findByRole("heading", { name: "Analysis Chart" });
+    const titleText = await screen.findByRole("heading", {
+      name: "Analysis Chart",
+    });
 
     expect(titleText).toBeVisible;
   });
 
   it("should renders filters after fetching data", async () => {
-    const { findByTestId } = render(<MockAnalysis />);
+    render(<MockAnalysis />);
 
-    const filtersDiv = await findByTestId("filters-div");
+    const filtersDiv = await screen.findByTestId("filters-div");
 
     expect(filtersDiv).toBeVisible;
   });
 
   it("should renders classes after fetching data", async () => {
-    const { findByTestId } = render(<MockAnalysis />);
+    render(<MockAnalysis />);
 
-    const classesDiv = await findByTestId("classes-div");
+    const classesDiv = await screen.findByTestId("classes-div");
 
     expect(classesDiv).toBeVisible;
   });

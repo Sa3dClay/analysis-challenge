@@ -16,7 +16,7 @@ const AnalysisDetails = () => {
   const detailsTemplate = (
     <>
       {selectedRow && (
-        <div className="text-xl text-center">
+        <div data-testid="details-data" className="text-xl text-center">
           <p className="bg-indigo-600 text-white px-2 py-1 font-bold text-2xl my-2">
             {selectedRow.school}
           </p>
