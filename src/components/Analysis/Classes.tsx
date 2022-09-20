@@ -57,7 +57,10 @@ const Classes = () => {
   );
 
   return (
-    <div className="h-96 lg:h-[500px] overflow-y-scroll text-gray-800 border-l-2 pl-5 border-indigo-800">
+    <div
+      data-testid="classes-div"
+      className="h-96 lg:h-[500px] overflow-y-scroll text-gray-800 border-l-2 pl-5 border-indigo-800"
+    >
       <div className="lg:pl-8 xl:pl-14 pb-4">
         <p className="text-xl">
           <span className="pr-2 text-2xl font-bold">{lessonsCounter}</span>
